@@ -2,13 +2,14 @@ import numpy as np
 from keras import models
 from recording_helper import record_audio, terminate
 from tf_helper import preprocess_audiobuffer
+import tflite_runtime.interpreter as tflite
 #import 'recorded_audio_test.wav' as tes1
 
 # !! Modify this in the correct order
 commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
 
-loaded_model = models.load_model("saved_model")
-
+#loaded_model = models.load_model("saved_model")
+interpreter = tflite.Interpreter("saved_model")
 
 def predict_mic():
     audio = record_audio()
