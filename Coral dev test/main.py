@@ -11,13 +11,17 @@ commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
 interpreter = tflite.Interpreter(model_path="model.tflite")
 interpreter.allocate_tensors()
 
+# Print the expected input shape
+input_shape = interpreter.get_input_details()[0]['shape']
+print("Expected Input Shape:", input_shape)
+
 # Get input and output tensors.
 input_tensor = interpreter.tensor(interpreter.get_input_details()[0]['index'])
 output_tensor = interpreter.tensor(interpreter.get_output_details()[0]['index'])
 
 def predict_mic():
     audio = record_audio()
-    spec = preprocess_audiobuffer(audio)
+    spec = preprocess_audiobuffer(audio, input_shape)
 
     # Set input tensor.
     input_tensor()[0] = spec
