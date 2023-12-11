@@ -28,7 +28,7 @@ def get_spectrogram(waveform):
     
     return spectrogram
 
-def preprocess_audiobuffer(waveform):
+def preprocess_audiobuffer(waveform, expected_shape):
     """
     waveform: ndarray of size (16000, )
     
@@ -40,7 +40,10 @@ def preprocess_audiobuffer(waveform):
     # Get the spectrogram.
     spectrogram = get_spectrogram(waveform)
 
+    # Resize or pad the spectrogram to match the expected input shape
+    spectrogram = np.resize(spectrogram, expected_shape)
+
     # Add one dimension to match the expected input shape.
-    spectrogram = spectrogram[np.newaxis, ...]
+    spectrogram = np.expand_dims(spectrogram, 0)
 
     return spectrogram
