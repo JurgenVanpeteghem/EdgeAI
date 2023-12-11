@@ -8,7 +8,7 @@ from tf_helper import preprocess_audiobuffer
 commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
 
 # Load the TensorFlow Lite model.
-interpreter = tflite.Interpreter(model_path="path/to/your/tflite_model.tflite")
+interpreter = tflite.Interpreter(model_path="model.tflite")
 interpreter.allocate_tensors()
 
 # Get input and output tensors.
