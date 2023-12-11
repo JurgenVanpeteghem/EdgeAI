@@ -199,7 +199,7 @@ def input_tensor(interpreter):
 def set_input(interpreter, data):
     """Copies data to input tensor."""
     interpreter_shape = interpreter.get_input_details()[0]['shape']
-    input_tensor(interpreter)[:,:] = np.reshape(data, interpreter_shape[1:3])
+    input_tensor(interpreter)[:,:] = np.reshape(data, interpreter_shape[1:])
 
 
 def make_interpreter(model_file):
