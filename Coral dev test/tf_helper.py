@@ -5,11 +5,12 @@ seed = 42
 np.random.seed(seed)
 
 def stft(waveform, frame_length=255, frame_step=128):
-    # Compute Short-Time Fourier Transform (STFT)
     window = np.hanning(frame_length)
-    frames = np.lib.stride_tricks.sliding_window_view(waveform, window_shape=(frame_length,), step=frame_step)
-    stft_result = np.fft.fft(frames * window, axis=-1)
+    num_frames = 1 + (len(waveform) - frame_length) // frame_step
+    frames = np.array([waveform[i * frame_step:i * frame_step + frame_length] * window for i in range(num_frames)])
+    stft_result = np.fft.fft(frames, axis=-1)
     return np.abs(stft_result)
+
 
 def get_spectrogram(waveform):
     # Zero-padding for an audio waveform with less than 16,000 samples.
