@@ -7,6 +7,12 @@ from tf_helper import preprocess_audiobuffer
 # !! Modify this in the correct order
 commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
 
+# leds (use python-periphery)
+# python3 -m pip install python-periphery
+led1 = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
+led2 = GPIO("/dev/gpiochip4", 13, "out")  # pin 36
+led3 = GPIO("/dev/gpiochip0", 8, "out")  # pin 31
+
 # Load the TensorFlow Lite model.
 interpreter = tflite.Interpreter(model_path="model.tflite")
 interpreter.allocate_tensors()
@@ -42,7 +48,19 @@ if __name__ == "__main__":
         while True:
             command = predict_mic()
             print(command)
-            if command == "stop":
+            if command == "left":
+                led1.write(True)
+                time.sleep(2)
+                led1.write(False)
+            elif command == "down":
+                led2.write(True)
+                time.sleep(2)
+                led2.write(False)
+            elif command == "right":
+                led3.write(True)
+                time.sleep(2)
+                led3.write(False)
+            elif command == "stop":
                 break
             time.sleep(1)
     except KeyboardInterrupt:
