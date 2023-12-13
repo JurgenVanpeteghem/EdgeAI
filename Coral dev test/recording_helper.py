@@ -14,7 +14,8 @@ def record_audio():
         channels=CHANNELS,
         rate=RATE,
         input=True,
-        frames_per_buffer=FRAMES_PER_BUFFER
+        frames_per_buffer=FRAMES_PER_BUFFER,
+        input_device_index=10
     )
 
     frames = []
