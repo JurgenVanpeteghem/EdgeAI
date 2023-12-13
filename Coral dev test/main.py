@@ -3,6 +3,7 @@ import tflite_runtime.interpreter as tflite
 import time
 from recording_helper import record_audio, terminate
 from tf_helper import preprocess_audiobuffer
+from periphery import GPIO
 
 # !! Modify this in the correct order
 commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
