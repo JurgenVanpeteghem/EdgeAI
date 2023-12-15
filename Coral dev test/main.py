@@ -47,8 +47,12 @@ def predict_mic():
 if __name__ == "__main__":
     try:
         while True:
-            command = predict_mic()
-            print(command)
+            if input():
+                command = predict_mic()
+                print(command)
+                if command == "stop":
+                    terminate()
+                    break
             # if command == "left":
             #     led1.write(True)
             #     time.sleep(2)
@@ -61,9 +65,6 @@ if __name__ == "__main__":
             #     led3.write(True)
             #     time.sleep(2)
             #     led3.write(False)
-            if command == "stop":
-                break
-            time.sleep(1)
     except KeyboardInterrupt:
         pass
     finally:
