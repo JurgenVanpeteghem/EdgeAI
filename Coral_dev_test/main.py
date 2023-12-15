@@ -20,7 +20,7 @@ interpreter.allocate_tensors()
 
 # Print the expected input shape
 input_shape = interpreter.get_input_details()[0]['shape']
-print("Expected Input Shape:", input_shape)
+#print("Expected Input Shape:", input_shape)
 
 # Get input and output tensors.
 input_tensor = interpreter.tensor(interpreter.get_input_details()[0]['index'])
