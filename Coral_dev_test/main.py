@@ -8,8 +8,8 @@ from periphery import GPIO
 # !! Modify this in the correct order
 commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
 
-leds (use python-periphery)
-python3 -m pip install python-periphery
+# leds (use python-periphery)
+# python3 -m pip install python-periphery
 led1 = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
 led2 = GPIO("/dev/gpiochip4", 13, "out")  # pin 36
 led3 = GPIO("/dev/gpiochip0", 8, "out")  # pin 31
