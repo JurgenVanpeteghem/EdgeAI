@@ -57,10 +57,6 @@ if __name__ == "__main__":
                 led1.write(True)
                 time.sleep(2)
                 led1.write(False)
-            if command == "no":
-                led1.write(True)
-                time.sleep(2)
-                led1.write(False)
             elif command == "down":
                 led2.write(True)
                 time.sleep(2)
