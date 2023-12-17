@@ -20,6 +20,7 @@ stream = p.open(format=FORMAT,
                 rate=sample_rate,
                 input=True,
                 output=True,
+                input_device_index=0,
                 frames_per_buffer=chunk)
 frames = []
 print("Recording...")
