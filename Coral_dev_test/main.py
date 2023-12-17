@@ -3,16 +3,16 @@ import tflite_runtime.interpreter as tflite
 import time
 from recording_helper import record_audio, terminate
 from tf_helper import preprocess_audiobuffer
-#from periphery import GPIO
+from periphery import GPIO
 
 # !! Modify this in the correct order
 commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
 
-# leds (use python-periphery)
-# python3 -m pip install python-periphery
-# led1 = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
-# led2 = GPIO("/dev/gpiochip4", 13, "out")  # pin 36
-# led3 = GPIO("/dev/gpiochip0", 8, "out")  # pin 31
+leds (use python-periphery)
+python3 -m pip install python-periphery
+led1 = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
+led2 = GPIO("/dev/gpiochip4", 13, "out")  # pin 36
+led3 = GPIO("/dev/gpiochip0", 8, "out")  # pin 31
 
 # Load the TensorFlow Lite model.
 interpreter = tflite.Interpreter(model_path="model.tflite")
@@ -53,18 +53,18 @@ if __name__ == "__main__":
                 if command == "stop":
                     terminate()
                     break
-            # if command == "left":
-            #     led1.write(True)
-            #     time.sleep(2)
-            #     led1.write(False)
-            # elif command == "down":
-            #     led2.write(True)
-            #     time.sleep(2)
-            #     led2.write(False)
-            # elif command == "right":
-            #     led3.write(True)
-            #     time.sleep(2)
-            #     led3.write(False)
+            if command == "left":
+                led1.write(True)
+                time.sleep(2)
+                led1.write(False)
+            elif command == "down":
+                led2.write(True)
+                time.sleep(2)
+                led2.write(False)
+            elif command == "right":
+                led3.write(True)
+                time.sleep(2)
+                led3.write(False)
     except KeyboardInterrupt:
         pass
     finally:
