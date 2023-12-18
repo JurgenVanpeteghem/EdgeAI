@@ -2,10 +2,10 @@ import wave
 import pyaudio
 import numpy as np
 
-FRAMES_PER_BUFFER = 1024
+FRAMES_PER_BUFFER = 3200
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 44100
+RATE = 16000
 audio = pyaudio.PyAudio()
 
 def record_audio():
@@ -14,8 +14,6 @@ def record_audio():
         channels=CHANNELS,
         rate=RATE,
         input=True,
-        output=True,
-        input_device_index=0,
         frames_per_buffer=FRAMES_PER_BUFFER
     )
 
