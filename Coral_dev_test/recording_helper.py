@@ -2,7 +2,7 @@ import wave
 import pyaudio
 import numpy as np
 
-FRAMES_PER_BUFFER = 3200
+FRAMES_PER_BUFFER = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
