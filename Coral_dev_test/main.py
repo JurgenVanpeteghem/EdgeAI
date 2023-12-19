@@ -17,7 +17,7 @@ led3 = GPIO("/dev/gpiochip0", 8, "out")  # pin 31
 
 # Load the TensorFlow Lite model.
 #interpreter = tflite.Interpreter(model_path="model.tflite")
-interpreter = tflite.Interpreter(model_path=model_epoch5.tflite)
+interpreter = tflite.Interpreter(model_path="model_epoch5.tflite")
 interpreter.allocate_tensors()
 
 # Print the expected input shape
