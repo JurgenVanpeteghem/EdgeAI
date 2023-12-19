@@ -6,7 +6,8 @@ from tf_helper import preprocess_audiobuffer
 from periphery import GPIO
 
 # !! Modify this in the correct order
-commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
+# commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
+commands = ['five', 'four', 'off', 'on', 'stop', 'three', 'yes', 'zero', 'blabla']
 
 # leds (use python-periphery)
 # python3 -m pip install python-periphery
@@ -15,7 +16,8 @@ led2 = GPIO("/dev/gpiochip4", 13, "out")  # pin 36
 led3 = GPIO("/dev/gpiochip0", 8, "out")  # pin 31
 
 # Load the TensorFlow Lite model.
-interpreter = tflite.Interpreter(model_path="model.tflite")
+#interpreter = tflite.Interpreter(model_path="model.tflite")
+interpreter = tflite.Interpreter(model_path=model_epoch5.tflite)
 interpreter.allocate_tensors()
 
 # Print the expected input shape
