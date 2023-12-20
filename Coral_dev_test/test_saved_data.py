@@ -13,6 +13,9 @@ from keras import layers
 from keras import models
 #from IPython import display
 
+interpreter = tflite.Interpreter(model_path="model.tflite")
+interpreter.allocate_tensors()
+
 import wave
 DATASET_PATH = 'data/mini_speech_commands'
 
@@ -84,17 +87,22 @@ while True:
 
       print(signal_array.shape)
 
-      loaded_model = models.load_model("saved_model")
-
       # set in correct shape
       waveform = signal_array / 32768
       waveform = tf.convert_to_tensor(waveform,dtype= tf.float32)
       spec = get_spectrogram(waveform)
       spec = tf.expand_dims(spec, 0)
-      prediction = loaded_model(spec)
+      
+      input_tensor = interpreter.tensor(interpreter.get_input_details()[0]['index'])
+      output_tensor = interpreter.tensor(interpreter.get_output_details()[0]['index'])
 
-      label_pred = np.argmax(prediction, axis=1)
-      print("prediction:", commands[label_pred[0]])
+      input_tensor()[0] = spec
+      interpreter.invoke()
+
+      prediction = output_tensor()[0]
+      label_pred = np.argmax(prediction)
+      
+      print("prediction:", commands[label_pred])
       plt.bar(commands, tf.nn.softmax(prediction[0]))
       plt.title(f'Predictions for "left"')
       plt.show()
