@@ -1,9 +1,8 @@
 import os
 import pathlib
 
-import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
+
 import tensorflow as tf
 
 import wave
@@ -103,6 +102,3 @@ while True:
       label_pred = np.argmax(prediction)
       
       print("prediction:", commands[label_pred])
-      plt.bar(commands, tf.nn.softmax(prediction[0]))
-      plt.title(f'Predictions for "left"')
-      plt.show()
