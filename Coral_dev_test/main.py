@@ -16,8 +16,7 @@ led2 = GPIO("/dev/gpiochip4", 13, "out")  # pin 36
 led3 = GPIO("/dev/gpiochip0", 8, "out")  # pin 31
 
 # Load the TensorFlow Lite model.
-#interpreter = tflite.Interpreter(model_path="model.tflite")
-interpreter = tflite.Interpreter(model_path="model_epoch10.tflite")
+interpreter = tflite.Interpreter(model_path="keyword_recognition_model.tflite")
 interpreter.allocate_tensors()
 
 # Print the expected input shape
