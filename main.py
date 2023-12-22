@@ -9,7 +9,7 @@ import tflite_runtime.interpreter as tflite
 commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
 
 #loaded_model = models.load_model("saved_model")
-interpreter = tflite.Interpreter("saved_model")
+interpreter = tflite.Interpreter("model.tflite")
 
 def predict_mic():
     audio = record_audio()
