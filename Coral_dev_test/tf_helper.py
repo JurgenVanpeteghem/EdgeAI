@@ -6,7 +6,7 @@ from scipy import ndimage
 seed = 42
 np.random.seed(seed)
 
-def get_spectrogram(waveform):
+def get_spectogram(waveform):
     spectrograms = []
 
     # Generate spectrogram using librosa
