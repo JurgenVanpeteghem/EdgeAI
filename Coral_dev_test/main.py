@@ -1,6 +1,7 @@
 import numpy as np
 import tflite_runtime.interpreter as tflite
 import time
+import wave
 from recording_helper import record_audio, terminate
 from tf_helper import get_spectogram
 from periphery import GPIO
