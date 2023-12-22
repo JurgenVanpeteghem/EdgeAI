@@ -30,7 +30,15 @@ output_tensor = interpreter.tensor(interpreter.get_output_details()[0]['index'])
 def predict_mic():
     audio = record_audio()
     sample_file = 'recorded.wav'
-    spec = get_spectogram(sample_file)
+    
+    obj = wave.open(str(sample_file), 'rb')
+    n_samples = obj.getnframes()
+    signal_wave = obj.readframes(n_samples)
+    signal_array = np.frombuffer(signal_wave, dtype=np.int16)
+    obj.close()
+
+    waveform = signal_array / 32768
+    spec = get_spectogram(waveform)
 
     # Set input tensor.
     input_tensor()[0] = spec
