@@ -1,6 +1,5 @@
 import pyaudio
 import numpy as np
-import keyboard
 
 FRAMES_PER_BUFFER = 3200
 FORMAT = pyaudio.paInt16
@@ -14,6 +13,7 @@ def record_audio():
         channels=CHANNELS,
         rate=RATE,
         input=True,
+        input_device_index=0,
         frames_per_buffer=FRAMES_PER_BUFFER
     )
 
