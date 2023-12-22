@@ -18,7 +18,7 @@ def record_audio():
         frames_per_buffer=FRAMES_PER_BUFFER
     )
 
-    #print("start recording...")
+    print("start recording...")
 
     frames = []
     seconds = 1
@@ -26,19 +26,17 @@ def record_audio():
         data = stream.read(FRAMES_PER_BUFFER)
         frames.append(data)
 
-    # print("recording stopped")
+    print("recording stopped")
 
     stream.stop_stream()
     stream.close()
 
-     # Save the recorded audio as a WAV file
+    # Save the recorded audio as a WAV file
     with wave.open("test.wav", 'wb') as wf:
         wf.setnchannels(CHANNELS)
         wf.setsampwidth(audio.get_sample_size(FORMAT))
         wf.setframerate(RATE)
         wf.writeframes(b''.join(frames))
-    
-    return np.frombuffer(b''.join(frames), dtype=np.int16)
 
 
 def terminate():
