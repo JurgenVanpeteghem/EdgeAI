@@ -62,7 +62,7 @@ if __name__ == "__main__":
             if input() == "":
                 command = predict_mic()
                 print(command)
-                command == "drie"
+                print(type(command))
             if command == "drie":
                 led1.write(True)
                 time.sleep(2)
