@@ -10,7 +10,7 @@ def get_spectogram(waveform):
     spectrograms = []
 
     # Generate spectrogram using librosa
-    spectrogram = librosa.feature.melspectrogram(y=waveform, sr=16000)
+    spectrogram = librosa.feature.melspectrogram(y=waveform, sr=44100)
     spectrogram = librosa.power_to_db(spectrogram, ref=np.max)
 
     # Resize spectrogram to a fixed shape without TensorFlow
