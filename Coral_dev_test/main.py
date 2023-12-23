@@ -62,15 +62,16 @@ if __name__ == "__main__":
             if input() == "":
                 command = predict_mic()
                 print(command)
-            if command == "left":
+                command == "drie"
+            if command == "drie":
                 led1.write(True)
                 time.sleep(2)
                 led1.write(False)
-            elif command == "down":
+            elif command == "een":
                 led2.write(True)
                 time.sleep(2)
                 led2.write(False)
-            elif command == "right":
+            elif command == "stop":
                 led3.write(True)
                 time.sleep(2)
                 led3.write(False)
