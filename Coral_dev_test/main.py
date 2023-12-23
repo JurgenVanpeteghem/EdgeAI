@@ -7,8 +7,9 @@ from tf_helper import get_spectogram
 from periphery import GPIO
 
 # !! Modify this in the correct order
-commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
-#commands = ['five', 'four', 'off', 'on', 'stop', 'three', 'yes', 'zero', 'blabla']
+#commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
+#commands = ['five', 'four', 'off', 'on', 'stop', 'three', 'yes', 'zero']
+commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
 
 # leds (use python-periphery)
 # python3 -m pip install python-periphery
