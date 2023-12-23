@@ -62,9 +62,6 @@ if __name__ == "__main__":
             if input() == "":
                 command = predict_mic()
                 print(command)
-                if command == "stop":
-                    terminate()
-                    break
             if command == "left":
                 led1.write(True)
                 time.sleep(2)
