@@ -58,7 +58,7 @@ def predict_mic():
 if __name__ == "__main__":
     try:
         while True:
-            if input():
+            if input() == "":
                 command = predict_mic()
                 print(command)
                 if command == "stop":
