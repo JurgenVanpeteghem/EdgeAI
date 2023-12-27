@@ -4,7 +4,6 @@ import time
 import wave
 from recording_helper import record_audio, terminate
 from tf_helper import get_spectogram
-import webrtcvad #voice activity detection
 
 # keywords
 commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
@@ -66,7 +65,6 @@ write_gpio(led3_pin, 0)
 def is_audio_spoken(audio_data):
     return True
 
-
 def predict_mic():
     audio = record_audio()
     print(is_audio_spoken(audio))
@@ -94,7 +92,6 @@ def predict_mic():
     prediction = output_tensor()[0]
     label_pred = np.argmax(prediction)
     confidence = prediction[label_pred]
-    print("confidence", confidence)
     
 
     command = commands[label_pred]
