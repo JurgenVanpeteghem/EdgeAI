@@ -1,36 +1,33 @@
+import wave
 import pyaudio
 import numpy as np
-import wave
 
 FRAMES_PER_BUFFER = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
-
 audio = pyaudio.PyAudio()
 
-def record_audio(frame_size):
+def record_audio():
     stream = audio.open(
         format=FORMAT,
         channels=CHANNELS,
         rate=RATE,
         input=True,
-        input_device_index=0,  # Adjust this index based on your microphone device
-        frames_per_buffer=frame_size
+        input_device_index=0,
+        frames_per_buffer=FRAMES_PER_BUFFER
     )
 
-    print("Start recording...")
+    print("start recording...")
 
     frames = []
-    seconds = 1  # Adjust this duration based on your requirements
-
-    for _ in range(0, int(RATE / frame_size * (seconds * 1000 / FRAMES_PER_BUFFER))):
-        data = stream.read(frame_size)
+    seconds = 1
+    for i in range(0, int(RATE / FRAMES_PER_BUFFER * seconds)):
+        data = stream.read(FRAMES_PER_BUFFER)
         frames.append(data)
 
-    print("Recording stopped")
+    print("recording stopped")
 
-    # Convert the frames to a NumPy array
     audio_data = np.frombuffer(b''.join(frames), dtype=np.int16)
 
     stream.stop_stream()
@@ -42,9 +39,8 @@ def record_audio(frame_size):
         wf.setsampwidth(audio.get_sample_size(FORMAT))
         wf.setframerate(RATE)
         wf.writeframes(b''.join(frames))
-
+        
     return audio_data
-
 
 def terminate():
     audio.terminate()
