@@ -5,6 +5,9 @@ import wave
 from recording_helper import record_audio, terminate
 from tf_helper import get_spectogram
 
+# keywords
+commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
+
 # Load the TensorFlow Lite model.
 interpreter = tflite.Interpreter(model_path="keyword_recognition_model_full_data.tflite")
 interpreter.allocate_tensors()
