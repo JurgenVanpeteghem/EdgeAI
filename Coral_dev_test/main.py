@@ -4,18 +4,6 @@ import time
 import wave
 from recording_helper import record_audio, terminate
 from tf_helper import get_spectogram
-from periphery import GPIO
-
-# !! Modify this in the correct order
-#commands = ['left', 'down', 'stop', 'up', 'right', 'no', 'go', 'yes']
-#commands = ['five', 'four', 'off', 'on', 'stop', 'three', 'yes', 'zero']
-commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
-
-# leds (use python-periphery)
-# python3 -m pip install python-periphery
-led1 = GPIO("/sys/class/gpio/gpio77", 13, "out")  # pin 37
-led2 = GPIO("/sys/class/gpio/gpio141", 13, "out")  # pin 36
-led3 = GPIO("/sys/class/gpio/gpio8", 8, "out")  # pin 31
 
 # Load the TensorFlow Lite model.
 interpreter = tflite.Interpreter(model_path="keyword_recognition_model_full_data.tflite")
@@ -29,17 +17,47 @@ input_shape = interpreter.get_input_details()[0]['shape']
 input_tensor = interpreter.tensor(interpreter.get_input_details()[0]['index'])
 output_tensor = interpreter.tensor(interpreter.get_output_details()[0]['index'])
 
+def export_gpio(pin):
+    try:
+        with open('/sys/class/gpio/export', 'w') as f:
+            f.write(str(pin))
+    except IOError:
+        print("Error exporting GPIO pin {}".format(pin))
+
+def set_direction(pin, direction):
+    try:
+        with open('/sys/class/gpio/gpio{}/direction'.format(pin), 'w') as f:
+            f.write(direction)
+    except IOError:
+        print("Error setting direction for GPIO pin {}".format(pin))
+
+def write_gpio(pin, value):
+    try:
+        with open('/sys/class/gpio/gpio{}/value'.format(pin), 'w') as f:
+            f.write(str(value))
+    except IOError:
+        print("Error writing value to GPIO pin {}".format(pin))
+
+# Configure GPIO pins
+led1_pin = 77  # GPIO pin for led1
+led2_pin = 141  # GPIO pin for led2
+led3_pin = 8  # GPIO pin for led3
+
+# Export GPIO pins
+export_gpio(led1_pin)
+export_gpio(led2_pin)
+export_gpio(led3_pin)
+
+# Set GPIO pin directions
+set_direction(led1_pin, 'out')
+set_direction(led2_pin, 'out')
+set_direction(led3_pin, 'out')
+
 def predict_mic():
     audio = record_audio()
-    sample_file = 'recorded.wav'
     
-    obj = wave.open(str(sample_file), 'rb')
-    n_samples = obj.getnframes()
-    signal_wave = obj.readframes(n_samples)
-    signal_array = np.frombuffer(signal_wave, dtype=np.int16)
-    obj.close()
-
-    waveform = signal_array / 32768
+    # Process audio data and run inference
+    waveform = audio / 32768
     spec = get_spectogram(waveform)
 
     # Set input tensor.
@@ -61,20 +79,29 @@ if __name__ == "__main__":
         while True:
             command = predict_mic()
             print(command)
+            
             if command in ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']:
                 if command == 'een':
-                    led1.write(True)
+                    write_gpio(led1_pin, 1)
                 elif command == "licht":
-                    led2.write(True)
+                    write_gpio(led2_pin, 1)
                 elif command == "drie":
-                    led3.write(True)
+                    write_gpio(led3_pin, 1)
                 elif command == 'klaar':
-                    led1.write(False)
+                    write_gpio(led1_pin, 0)
                 elif command == 'uit':
-                    led2.write(False)
+                    write_gpio(led2_pin, 0)
                 elif command == 'stop':
-                    led3.write(False)
+                    write_gpio(led3_pin, 0)
     except KeyboardInterrupt:
         pass
     finally:
+        # Unexport GPIO pins when done
+        try:
+            with open('/sys/class/gpio/unexport', 'w') as f:
+                f.write(str(led1_pin))
+                f.write(str(led2_pin))
+                f.write(str(led3_pin))
+        except IOError:
+            print("Error unexporting GPIO pins")
         terminate()
