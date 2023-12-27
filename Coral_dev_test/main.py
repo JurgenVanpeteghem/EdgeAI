@@ -13,9 +13,9 @@ commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
 
 # leds (use python-periphery)
 # python3 -m pip install python-periphery
-led1 = GPIO("/sys/class/gpio/gpio77", "out")  # pin 37
-led2 = GPIO("/sys/class/gpio/gpio141", "out")  # pin 36
-led3 = GPIO("/sys/class/gpio/gpio8", "out")  # pin 31
+led1 = GPIO("/sys/class/gpio/gpio77", 13, "out")  # pin 37
+led2 = GPIO("/sys/class/gpio/gpio141", 13, "out")  # pin 36
+led3 = GPIO("/sys/class/gpio/gpio8", 8, "out")  # pin 31
 
 # Load the TensorFlow Lite model.
 interpreter = tflite.Interpreter(model_path="keyword_recognition_model_full_data.tflite")
