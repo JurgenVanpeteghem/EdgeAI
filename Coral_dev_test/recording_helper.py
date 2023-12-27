@@ -46,3 +46,6 @@ def record_audio(frame_size):
         stream.stop_stream()
         stream.close()
         audio.terminate()
+
+def terminate():
+    audio.terminate()
