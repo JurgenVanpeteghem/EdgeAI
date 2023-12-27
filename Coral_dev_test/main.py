@@ -4,6 +4,7 @@ import time
 import wave
 from recording_helper import record_audio, terminate
 from tf_helper import get_spectogram
+import webrtcvad #voice activity detection
 
 # keywords
 commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
