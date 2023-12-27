@@ -63,8 +63,7 @@ write_gpio(led2_pin, 0)
 write_gpio(led3_pin, 0)
 
 def is_audio_spoken(audio_data):
-    # Check if the audio contains speech using VAD
-    return vad.is_speech(audio_data.tobytes(), sample_rate=sample_rate)
+    return True
 
 
 def predict_mic():
