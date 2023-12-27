@@ -55,9 +55,15 @@ set_direction(led3_pin, 'out')
 
 def predict_mic():
     audio = record_audio()
+    sample_file = 'recorded.wav'
     
-    # Process audio data and run inference
-    waveform = audio / 32768
+    obj = wave.open(str(sample_file), 'rb')
+    n_samples = obj.getnframes()
+    signal_wave = obj.readframes(n_samples)
+    signal_array = np.frombuffer(signal_wave, dtype=np.int16)
+    obj.close()
+
+    waveform = signal_array / 32768
     spec = get_spectogram(waveform)
 
     # Set input tensor.
