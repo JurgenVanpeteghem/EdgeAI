@@ -10,7 +10,8 @@ import webrtcvad #voice activity detection
 commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
 
 # Load the TensorFlow Lite model.
-interpreter = tflite.Interpreter(model_path="keyword_recognition_model_full_data.tflite")
+# interpreter = tflite.Interpreter(model_path="keyword_recognition_model_full_data.tflite")
+interpreter = tflite.Interpreter(model_path="keyword_recognition_model_full_data_edgetpu.tflite")
 interpreter.allocate_tensors()
 
 # Print the expected input shape
