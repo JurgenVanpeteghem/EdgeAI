@@ -13,12 +13,12 @@ commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
 
 # leds (use python-periphery)
 # python3 -m pip install python-periphery
-led1 = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
-led2 = GPIO("/dev/gpiochip4", 13, "out")  # pin 36
-led3 = GPIO("/dev/gpiochip0", 8, "out")  # pin 31
+led1 = GPIO("/sys/class/gpio/gpio77", "out")  # pin 37
+led2 = GPIO("/sys/class/gpio/gpio141", "out")  # pin 36
+led3 = GPIO("/sys/class/gpio/gpio8", "out")  # pin 31
 
 # Load the TensorFlow Lite model.
-interpreter = tflite.Interpreter(model_path="keyword_recognition_model.tflite")
+interpreter = tflite.Interpreter(model_path="keyword_recognition_model_full_data.tflite")
 interpreter.allocate_tensors()
 
 # Print the expected input shape
@@ -59,21 +59,21 @@ def predict_mic():
 if __name__ == "__main__":
     try:
         while True:
-            if input() == "":
-                command = predict_mic()
-                print(command)
-            if command == "drie":
-                led1.write(True)
-                time.sleep(2)
-                led1.write(False)
-            elif command == "een":
-                led2.write(True)
-                time.sleep(2)
-                led2.write(False)
-            elif command == "stop":
-                led3.write(True)
-                time.sleep(2)
-                led3.write(False)
+            command = predict_mic()
+            print(command)
+            if command in ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']:
+                if command == 'een':
+                    led1.write(True)
+                elif command == "licht":
+                    led2.write(True)
+                elif command == "drie":
+                    led3.write(True)
+                elif command == 'klaar':
+                    led1.write(False)
+                elif command == 'uit':
+                    led2.write(False)
+                elif command == 'stop':
+                    led3.write(False)
     except KeyboardInterrupt:
         pass
     finally:
