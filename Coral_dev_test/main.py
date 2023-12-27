@@ -9,7 +9,7 @@ from tf_helper import get_spectogram
 commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
 
 # Audio threshold
-energy_threshold = 35  # Adjust this value based on your environment
+energy_threshold = 35.0  # Adjust this value based on your environment
 
 # Load the TensorFlow Lite model.
 interpreter = tflite.Interpreter(model_path="keyword_recognition_model_full_data.tflite")
