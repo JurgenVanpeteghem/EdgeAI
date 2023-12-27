@@ -1,4 +1,3 @@
-import wave
 import pyaudio
 import numpy as np
 
@@ -6,41 +5,44 @@ FRAMES_PER_BUFFER = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
-audio = pyaudio.PyAudio()
 
-def record_audio():
-    stream = audio.open(
-        format=FORMAT,
-        channels=CHANNELS,
-        rate=RATE,
-        input=True,
-        input_device_index=0,
-        frames_per_buffer=FRAMES_PER_BUFFER
-    )
+def record_audio(frame_size):
+    audio = pyaudio.PyAudio()
 
-    print("start recording...")
+    try:
+        stream = audio.open(
+            format=FORMAT,
+            channels=CHANNELS,
+            rate=RATE,
+            input=True,
+            input_device_index=0,  # Adjust this index based on your microphone device
+            frames_per_buffer=frame_size
+        )
 
-    frames = []
-    seconds = 1
-    for i in range(0, int(RATE / FRAMES_PER_BUFFER * seconds)):
-        data = stream.read(FRAMES_PER_BUFFER)
-        frames.append(data)
+        print("Start recording...")
 
-    print("recording stopped")
+        frames = []
+        seconds = 1  # Adjust this duration based on your requirements
 
-    audio_data = np.frombuffer(b''.join(frames), dtype=np.int16)
+        for _ in range(0, int(RATE / frame_size * (seconds * 1000 / FRAMES_PER_BUFFER))):
+            data = stream.read(frame_size)
+            frames.append(data)
 
-    stream.stop_stream()
-    stream.close()
+        print("Recording stopped")
 
-    # Save the recorded audio as a WAV file
-    with wave.open("recorded.wav", 'wb') as wf:
+        # Convert the frames to a NumPy array
+        audio_data = np.frombuffer(b''.join(frames), dtype=np.int16)
+
+        # Save the recorded audio as a WAV file
+        with wave.open("recorded.wav", 'wb') as wf:
         wf.setnchannels(CHANNELS)
         wf.setsampwidth(audio.get_sample_size(FORMAT))
         wf.setframerate(RATE)
         wf.writeframes(b''.join(frames))
-        
-    return audio_data
 
-def terminate():
-    audio.terminate()
+        return audio_data
+
+    finally:
+        stream.stop_stream()
+        stream.close()
+        audio.terminate()
