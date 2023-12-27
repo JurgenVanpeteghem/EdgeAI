@@ -61,13 +61,13 @@ write_gpio(led1_pin, 0)
 write_gpio(led2_pin, 0)
 write_gpio(led3_pin, 0)
 
-def is_audio_spoken(audio_data, energy_threshold=20.0):
-    # Calculate the root mean square (RMS) energy of the audio signal
-    rms_energy = np.sqrt(np.mean(audio_data**2))
-    print("rms_energy", rms_energy)
+# VAD parameters
+vad = webrtcvad.Vad()
+vad.set_mode(1)  # Set the VAD aggressiveness (0-3)
 
-    # Check if the RMS energy surpasses the threshold
-    return rms_energy > energy_threshold
+def is_audio_spoken(audio_data):
+    # Check if the audio contains speech using VAD
+    return vad.is_speech(audio_data.tobytes(), sample_rate=44100)
 
 
 def predict_mic():
