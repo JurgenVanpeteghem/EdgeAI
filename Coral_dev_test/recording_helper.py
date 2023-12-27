@@ -1,5 +1,6 @@
 import pyaudio
 import numpy as np
+import wave
 
 FRAMES_PER_BUFFER = 1024
 FORMAT = pyaudio.paInt16
