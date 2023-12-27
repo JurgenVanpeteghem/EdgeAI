@@ -56,6 +56,11 @@ set_direction(led1_pin, 'out')
 set_direction(led2_pin, 'out')
 set_direction(led3_pin, 'out')
 
+# write all leds low
+write_gpio(led1_pin, 0)
+write_gpio(led2_pin, 0)
+write_gpio(led3_pin, 0)
+
 def predict_mic():
     audio = record_audio()
     sample_file = 'recorded.wav'
