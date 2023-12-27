@@ -83,6 +83,8 @@ def predict_mic():
     # Get the output.
     prediction = output_tensor()[0]
     label_pred = np.argmax(prediction)
+    confidence = prediction[label_pred]
+    print("confidence ", confidence)
 
     command = commands[label_pred]
     print("Predicted label:", command)
