@@ -29,7 +29,6 @@ def record_audio():
     print("recording stopped")
 
     audio_data = np.frombuffer(b''.join(frames), dtype=np.int16)
-    return audio_data
 
     stream.stop_stream()
     stream.close()
@@ -40,7 +39,8 @@ def record_audio():
         wf.setsampwidth(audio.get_sample_size(FORMAT))
         wf.setframerate(RATE)
         wf.writeframes(b''.join(frames))
-
+        
+    return audio_data
 
 def terminate():
     audio.terminate()
