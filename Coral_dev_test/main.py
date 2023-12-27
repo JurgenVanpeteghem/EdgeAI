@@ -67,8 +67,9 @@ vad = webrtcvad.Vad()
 vad.set_mode(1)  # Set the VAD aggressiveness (0-3)
 
 def is_audio_spoken(audio_data):
-    # Check if the audio contains speech using VAD
-    return vad.is_speech(audio_data.tobytes(), sample_rate=44100)
+    return True
+    # # Check if the audio contains speech using VAD
+    # return vad.is_speech(audio_data.tobytes(), sample_rate=44100)
 
 
 def predict_mic():
@@ -98,6 +99,7 @@ def predict_mic():
     prediction = output_tensor()[0]
     label_pred = np.argmax(prediction)
     confidence = prediction[label_pred]
+    print("confidence", confidence)
     
 
     command = commands[label_pred]
