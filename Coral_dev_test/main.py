@@ -61,7 +61,7 @@ write_gpio(led1_pin, 0)
 write_gpio(led2_pin, 0)
 write_gpio(led3_pin, 0)
 
-def is_audio_spoken(audio_data, energy_threshold=35.0):
+def is_audio_spoken(audio_data, energy_threshold=20.0):
     # Calculate the root mean square (RMS) energy of the audio signal
     rms_energy = np.sqrt(np.mean(audio_data**2))
     print("rms_energy", rms_energy)
