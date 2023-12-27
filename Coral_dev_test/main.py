@@ -75,6 +75,7 @@ def is_audio_spoken(audio_data, energy_threshold=0.01):
 
 def predict_mic():
     audio = record_audio()
+    print(is_audio_spoken(audio))
     if not is_audio_spoken(audio):
         return None, 0
     
