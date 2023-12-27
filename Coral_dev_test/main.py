@@ -108,7 +108,7 @@ def predict_mic():
 if __name__ == "__main__":
     try:
         while True:
-            command = predict_mic()
+            command, confidence = predict_mic()
             if command is not None and confidence > 0.7:
                 print("Predicted keyword:", command)
             
