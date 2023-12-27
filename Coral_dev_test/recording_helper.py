@@ -28,6 +28,9 @@ def record_audio():
 
     print("recording stopped")
 
+    audio_data = np.frombuffer(b''.join(frames), dtype=np.int16)
+    return audio_data
+
     stream.stop_stream()
     stream.close()
 
