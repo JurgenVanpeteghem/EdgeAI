@@ -8,9 +8,6 @@ from tf_helper import get_spectogram
 # keywords
 commands = ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']
 
-# Audio threshold
-energy_threshold = 35.0  # Adjust this value based on your environment
-
 # Load the TensorFlow Lite model.
 interpreter = tflite.Interpreter(model_path="keyword_recognition_model_full_data.tflite")
 interpreter.allocate_tensors()
@@ -64,7 +61,7 @@ write_gpio(led1_pin, 0)
 write_gpio(led2_pin, 0)
 write_gpio(led3_pin, 0)
 
-def is_audio_spoken(audio_data, energy_threshold=0.01):
+def is_audio_spoken(audio_data, energy_threshold=35.0):
     # Calculate the root mean square (RMS) energy of the audio signal
     rms_energy = np.sqrt(np.mean(audio_data**2))
     print("rms_energy", rms_energy)
