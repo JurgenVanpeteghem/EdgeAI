@@ -64,11 +64,14 @@ write_gpio(led1_pin, 0)
 write_gpio(led2_pin, 0)
 write_gpio(led3_pin, 0)
 
-def is_audio_spoken(audio_data):
-    # Check if the amplitude of the audio signal surpasses the threshold
-    amplitude = np.max(np.abs(audio_data))
-    print("amp", amplitude)
-    return amplitude > audio_threshold
+def is_audio_spoken(audio_data, energy_threshold=0.01):
+    # Calculate the root mean square (RMS) energy of the audio signal
+    rms_energy = np.sqrt(np.mean(audio_data**2))
+    print("rms_energy", rms_energy)
+
+    # Check if the RMS energy surpasses the threshold
+    return rms_energy > energy_threshold
+
 
 def predict_mic():
     audio = record_audio()
