@@ -6,9 +6,9 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 
-def record_audio(frame_size):
-    audio = pyaudio.PyAudio()
+audio = pyaudio.PyAudio()
 
+def record_audio(frame_size):
     stream = audio.open(
         format=FORMAT,
         channels=CHANNELS,
