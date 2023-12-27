@@ -62,22 +62,13 @@ write_gpio(led1_pin, 0)
 write_gpio(led2_pin, 0)
 write_gpio(led3_pin, 0)
 
-# VAD parameters
-vad = webrtcvad.Vad()
-vad.set_mode(1)  # Set the VAD aggressiveness (0-3)
-
-# Audio configuration
-sample_rate = 44100
-frame_duration = 30  # milliseconds
-frame_size = int(sample_rate * (frame_duration / 1000.0))
-
 def is_audio_spoken(audio_data):
     # Check if the audio contains speech using VAD
     return vad.is_speech(audio_data.tobytes(), sample_rate=sample_rate)
 
 
 def predict_mic():
-    audio = record_audio(frame_size)
+    audio = record_audio()
     print(is_audio_spoken(audio))
     if not is_audio_spoken(audio):
         return None, 0
