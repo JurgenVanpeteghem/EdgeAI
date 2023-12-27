@@ -67,6 +67,7 @@ write_gpio(led3_pin, 0)
 def is_audio_spoken(audio_data):
     # Check if the amplitude of the audio signal surpasses the threshold
     amplitude = np.max(np.abs(audio_data))
+    prtin("amp", amplitude)
     return amplitude > audio_threshold
 
 def predict_mic():
@@ -95,10 +96,9 @@ def predict_mic():
     prediction = output_tensor()[0]
     label_pred = np.argmax(prediction)
     confidence = prediction[label_pred]
-    print("confidence ", confidence)
+    
 
     command = commands[label_pred]
-    print("Predicted label:", command)
     return command
 
 if __name__ == "__main__":
@@ -106,7 +106,7 @@ if __name__ == "__main__":
         while True:
             command = predict_mic()
             if command is not None:
-                print(command)
+                print("Predicted keyword:", command)
             
                 if command in ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']:
                     if command == 'een':
