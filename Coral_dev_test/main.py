@@ -67,7 +67,7 @@ write_gpio(led3_pin, 0)
 def is_audio_spoken(audio_data):
     # Check if the amplitude of the audio signal surpasses the threshold
     amplitude = np.max(np.abs(audio_data))
-    prtin("amp", amplitude)
+    print("amp", amplitude)
     return amplitude > audio_threshold
 
 def predict_mic():
