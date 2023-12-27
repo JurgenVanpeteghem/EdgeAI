@@ -61,8 +61,16 @@ write_gpio(led1_pin, 0)
 write_gpio(led2_pin, 0)
 write_gpio(led3_pin, 0)
 
+def is_audio_spoken(audio_data):
+    # Check if the amplitude of the audio signal surpasses the threshold
+    amplitude = np.max(np.abs(audio_data))
+    return amplitude > audio_threshold
+
 def predict_mic():
     audio = record_audio()
+    if not is_audio_spoken(audio):
+        return None, 0
+    
     sample_file = 'recorded.wav'
     
     obj = wave.open(str(sample_file), 'rb')
@@ -94,21 +102,22 @@ if __name__ == "__main__":
     try:
         while True:
             command = predict_mic()
-            print(command)
+            if command is not None:
+                print(command)
             
-            if command in ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']:
-                if command == 'een':
-                    write_gpio(led1_pin, 1)
-                elif command == "licht":
-                    write_gpio(led2_pin, 1)
-                elif command == "drie":
-                    write_gpio(led3_pin, 1)
-                elif command == 'klaar':
-                    write_gpio(led1_pin, 0)
-                elif command == 'uit':
-                    write_gpio(led2_pin, 0)
-                elif command == 'stop':
-                    write_gpio(led3_pin, 0)
+                if command in ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']:
+                    if command == 'een':
+                        write_gpio(led1_pin, 1)
+                    elif command == "licht":
+                        write_gpio(led2_pin, 1)
+                    elif command == "drie":
+                        write_gpio(led3_pin, 1)
+                    elif command == 'klaar':
+                        write_gpio(led1_pin, 0)
+                    elif command == 'uit':
+                        write_gpio(led2_pin, 0)
+                    elif command == 'stop':
+                        write_gpio(led3_pin, 0)
     except KeyboardInterrupt:
         pass
     finally:
