@@ -93,7 +93,7 @@ if __name__ == "__main__":
         while True:
             #if input() == "":
             command, confidence = predict_mic()
-            if command is not None and confidence > 0.5:
+            if command is not None and confidence > 0.55:
                 print("Predicted keyword:", command)
             
                 if command in ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']:
