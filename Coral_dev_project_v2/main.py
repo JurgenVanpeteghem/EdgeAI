@@ -94,9 +94,12 @@ if __name__ == "__main__":
             #if input() == "":
             command, confidence = predict_mic()
             if command is not None: #and confidence > 0.5:
-                print("Predicted keyword:", command)
-            
-                if command in ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']:
+                if command == 'stop' and confidence > 0.65:
+                    print("Predicted keyword:", command)
+                    write_gpio(led3_pin, 0)
+                    
+                elif command in ['drie', 'een', 'klaar', 'licht', 'uit']:
+                    print("Predicted keyword:", command)
                     if command == 'een':
                         write_gpio(led1_pin, 1)
                     elif command == "licht":
@@ -107,8 +110,7 @@ if __name__ == "__main__":
                         write_gpio(led1_pin, 0)
                     elif command == 'uit':
                         write_gpio(led2_pin, 0)
-                    elif command == 'stop' and confidence > 0.65:
-                        write_gpio(led3_pin, 0)
+                        
     except KeyboardInterrupt:
         pass
     finally:
