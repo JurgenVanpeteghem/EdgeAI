@@ -71,7 +71,7 @@ def predict_mic():
     signal_array = np.frombuffer(recorded_audio_data, dtype=np.int16)
     
     waveform = signal_array / 32768
-    spec = get_spectrogram(waveform)
+    spec = get_spectogram(waveform)
 
     # Set input tensor.
     input_tensor()[0] = spec
