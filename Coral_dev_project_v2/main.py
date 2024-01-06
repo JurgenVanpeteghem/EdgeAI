@@ -66,21 +66,12 @@ def is_audio_spoken(audio_data):
     return True
 
 def predict_mic():
-    audio = record_audio()
-    print(is_audio_spoken(audio))
-    if not is_audio_spoken(audio):
-        return None, 0
+    recorded_audio_data = record_audio()
+    # Convert the recorded audio data to a numpy array
+    signal_array = np.frombuffer(recorded_audio_data, dtype=np.int16)
     
-    sample_file = 'recorded.wav'
-    
-    obj = wave.open(str(sample_file), 'rb')
-    n_samples = obj.getnframes()
-    signal_wave = obj.readframes(n_samples)
-    signal_array = np.frombuffer(signal_wave, dtype=np.int16)
-    obj.close()
-
     waveform = signal_array / 32768
-    spec = get_spectogram(waveform)
+    spec = get_spectrogram(waveform)
 
     # Set input tensor.
     input_tensor()[0] = spec
