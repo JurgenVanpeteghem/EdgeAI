@@ -91,24 +91,24 @@ def predict_mic():
 if __name__ == "__main__":
     try:
         while True:
-            if input() == "":
-                command, confidence = predict_mic()
-                if command is not None and confidence > 0.65:
-                    print("Predicted keyword:", command)
-                
-                    if command in ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']:
-                        if command == 'een':
-                            write_gpio(led1_pin, 1)
-                        elif command == "licht":
-                            write_gpio(led2_pin, 1)
-                        elif command == "drie":
-                            write_gpio(led3_pin, 1)
-                        elif command == 'klaar':
-                            write_gpio(led1_pin, 0)
-                        elif command == 'uit':
-                            write_gpio(led2_pin, 0)
-                        elif command == 'stop':
-                            write_gpio(led3_pin, 0)
+            #if input() == "":
+            command, confidence = predict_mic()
+            if command is not None and confidence > 0.5:
+                print("Predicted keyword:", command)
+            
+                if command in ['drie', 'een', 'klaar', 'licht', 'stop', 'uit']:
+                    if command == 'een':
+                        write_gpio(led1_pin, 1)
+                    elif command == "licht":
+                        write_gpio(led2_pin, 1)
+                    elif command == "drie":
+                        write_gpio(led3_pin, 1)
+                    elif command == 'klaar':
+                        write_gpio(led1_pin, 0)
+                    elif command == 'uit':
+                        write_gpio(led2_pin, 0)
+                    elif command == 'stop':
+                        write_gpio(led3_pin, 0)
     except KeyboardInterrupt:
         pass
     finally:
