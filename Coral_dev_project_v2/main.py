@@ -98,7 +98,7 @@ if __name__ == "__main__":
                     print("Predicted keyword:", command)
                     write_gpio(led3_pin, 0)
                     
-                elif command in ['drie', 'een', 'klaar', 'licht', 'uit']:
+                elif command in ['drie', 'een', 'klaar', 'licht', 'uit'] confidence > 0.55:
                     print("Predicted keyword:", command)
                     if command == 'een':
                         write_gpio(led1_pin, 1)
