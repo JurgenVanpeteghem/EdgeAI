@@ -26,21 +26,21 @@ def export_gpio(pin):
         with open('/sys/class/gpio/export', 'w') as f:
             f.write(str(pin))
     except IOError:
-        print("Error exporting GPIO pin {}".format(pin))
+        #print("Error exporting GPIO pin {}".format(pin))
 
 def set_direction(pin, direction):
     try:
         with open('/sys/class/gpio/gpio{}/direction'.format(pin), 'w') as f:
             f.write(direction)
     except IOError:
-        print("Error setting direction for GPIO pin {}".format(pin))
+        #print("Error setting direction for GPIO pin {}".format(pin))
 
 def write_gpio(pin, value):
     try:
         with open('/sys/class/gpio/gpio{}/value'.format(pin), 'w') as f:
             f.write(str(value))
     except IOError:
-        print("Error writing value to GPIO pin {}".format(pin))
+        #print("Error writing value to GPIO pin {}".format(pin))
 
 # Configure GPIO pins
 led1_pin = 77  # GPIO pin for led1
