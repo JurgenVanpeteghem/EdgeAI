@@ -26,6 +26,7 @@ def export_gpio(pin):
         with open('/sys/class/gpio/export', 'w') as f:
             f.write(str(pin))
     except IOError:
+        pass
         #print("Error exporting GPIO pin {}".format(pin))
 
 def set_direction(pin, direction):
@@ -33,6 +34,7 @@ def set_direction(pin, direction):
         with open('/sys/class/gpio/gpio{}/direction'.format(pin), 'w') as f:
             f.write(direction)
     except IOError:
+        pass
         #print("Error setting direction for GPIO pin {}".format(pin))
 
 def write_gpio(pin, value):
@@ -40,6 +42,7 @@ def write_gpio(pin, value):
         with open('/sys/class/gpio/gpio{}/value'.format(pin), 'w') as f:
             f.write(str(value))
     except IOError:
+        pass
         #print("Error writing value to GPIO pin {}".format(pin))
 
 # Configure GPIO pins
