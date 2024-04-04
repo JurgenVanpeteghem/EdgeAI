@@ -1,8 +1,0 @@
-left
-down
-stop
-up
-right
-no
-go
-yes
